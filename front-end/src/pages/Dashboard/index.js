@@ -1,13 +1,24 @@
 import { Link } from "react-router-dom";
+import Header from "../../components/Header";
+import Title from "../../components/Title";
+import { FiList } from "react-icons/fi";
+
+import "./dashboard.css";
 
 function Dashboard() {
   return (
-    <div>
-      <h1>DASHBOARD</h1>
+    <div className='dashboard-container'>
+      <Header />
 
-      <Link to='/newtask'>
-        <button>Ir para New Task</button>
-      </Link>
+      <div className='content'>
+        <Title>
+          <FiList size={25} />
+          <span>LISTA DE TAREFAS</span>
+        </Title>
+        <Link to='/newtask'>
+          <button>Nova tarefa</button>
+        </Link>
+      </div>
     </div>
   );
 }
