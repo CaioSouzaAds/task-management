@@ -11,9 +11,8 @@ function Dashboard() {
       <Header />
 
       <div className='content'>
-        <Title>
+        <Title name='LISTA DE TAREFAS'>
           <FiList size={25} />
-          <span>LISTA DE TAREFAS</span>
         </Title>
         <Link to='/newtask'>
           <button>Nova tarefa</button>
