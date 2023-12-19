@@ -117,3 +117,45 @@
   background-color: #ffc107;
   color: #333;
 }
+
+
+
+@media (max-width: 810px) {
+  .container {
+    margin-top: 2em; 
+  }
+
+  .form-task {
+    margin: 1em; 
+  }
+
+  .label-upload {
+    margin: 2em 2em; 
+  }
+
+  .image-preview {
+    width: 100%; 
+    max-width: none; 
+    height: auto; 
+    object-fit: contain;
+    border-radius: 0; 
+  }
+
+  .input-text,
+  .select-dropdown {
+    width: 100%;
+    max-width: none;
+    margin-bottom: 1em;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-around; 
+    margin-top: 1em;
+  }
+
+  .btn-cancelar,
+  .btn-salvar {
+    width: 48%; 
+  }
+}

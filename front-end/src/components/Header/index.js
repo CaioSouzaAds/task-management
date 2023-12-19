@@ -11,17 +11,17 @@ export default function Header() {
         <img src={avatarImg} alt='Foto do usuario' />
       </div>
 
-      <Link to='/dashboard'>
+      <Link to=''>
         <FiHome color='#FFF' size={24} />
         Suporte
       </Link>
 
-      <Link to='/customers'>
+      <Link to=''>
         <FiUser color='#FFF' size={24} />
         Clientes
       </Link>
 
-      <Link to='/profile'>
+      <Link to=''>
         <FiSettings color='#FFF' size={24} />
         Perfil
       </Link>

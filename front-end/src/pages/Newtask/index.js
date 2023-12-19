@@ -45,7 +45,7 @@ function NewTask() {
     }
   };
 
-  const handleSave = (e) => {
+  const handleSave = async function (e) {
     e.preventDefault();
 
     if (!descricao || !image) {
@@ -53,20 +53,29 @@ function NewTask() {
       return;
     }
 
-    // Lógica para salvar a tarefa, incluindo a imagem
-    // ...
+    const taskData = {
+      descricao: descricao,
+      status: status,
+      imagemUrl: image,
+    };
 
-    console.log("Imagem:", image);
-    console.log("Descrição", descricao);
-    console.log("Status", status);
+    try {
+      // Lógica para salvar a tarefa, incluindo a imagem
+      // Substitua isso com a lógica real de interação com o seu banco de dados
+      console.log("Dados da Tarefa:", taskData);
 
-    const saveError = false;
+      // Simulando uma operação assíncrona (pode ser uma chamada à API, operação no banco de dados, etc.)
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 1000); // Simulando um atraso de 1 segundo
+      });
 
-    if (saveError) {
-      toast.error("Erro ao salvar a tarefa");
-    } else {
       toast.success("Tarefa salva com sucesso");
       navigate("/");
+    } catch (error) {
+      console.error("Erro ao salvar a tarefa:", error);
+      toast.error("Erro ao salvar a tarefa");
     }
   };
 
