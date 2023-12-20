@@ -16,6 +16,7 @@ function Dashboard() {
         const response = await api.get("/tasks");
         const data = response.data;
         setTasks(data);
+        console.log(data);
       } catch (error) {
         console.error("Erro ao buscar dados da API:", error.message);
       }

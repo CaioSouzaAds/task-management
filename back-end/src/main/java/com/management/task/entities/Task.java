@@ -9,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -24,9 +23,7 @@ public class Task implements Serializable {
 	private Long id;
 	private String name;
 	private Boolean status;
-
-	@Lob
-	private byte[] image;
+	private String image;
 
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant createdAt;
@@ -38,7 +35,7 @@ public class Task implements Serializable {
 
 	}
 
-	public Task(Long id, String name, Boolean status, byte[] image) {
+	public Task(Long id, String name, Boolean status, String image) {
 		this.id = id;
 		this.name = name;
 		this.status = status;
@@ -77,11 +74,11 @@ public class Task implements Serializable {
 		return updatedAt;
 	}
 
-	public byte[] getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 
@@ -111,5 +108,4 @@ public class Task implements Serializable {
 		Task other = (Task) obj;
 		return Objects.equals(id, other.id);
 	}
-
 }

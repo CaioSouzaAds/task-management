@@ -1,10 +1,11 @@
-import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { FiEdit, FiUpload } from "react-icons/fi";
 import Title from "../../components/Title";
 import Header from "../../components/Header";
-import { FiEdit, FiUpload } from "react-icons/fi";
 import upload from "../../assets/upload.png";
+import api from "../../services/api";
 
 import "./newtask.css";
 
@@ -27,13 +28,8 @@ function NewTask() {
     const arquivoImagem = e.target.files[0];
 
     if (arquivoImagem) {
-      if (
-        arquivoImagem.type === "image/jpeg" ||
-        arquivoImagem.type === "image/png" ||
-        arquivoImagem.type === "image/jpg"
-      ) {
+      if (isImageValid(arquivoImagem)) {
         setImage(URL.createObjectURL(arquivoImagem));
-        toast.success("Imagem carregada com sucesso!");
       } else {
         toast.error("Por favor, selecione uma imagem jpg, jpeg ou png.");
         setImage(null);
@@ -45,7 +41,12 @@ function NewTask() {
     }
   };
 
-  const handleSave = async function (e) {
+  const isImageValid = (imageFile) => {
+    const validFormats = ["image/jpeg", "image/png", "image/jpg"];
+    return validFormats.includes(imageFile.type);
+  };
+
+  const handleSave = async (e) => {
     e.preventDefault();
 
     if (!descricao || !image) {
@@ -54,22 +55,14 @@ function NewTask() {
     }
 
     const taskData = {
-      descricao: descricao,
-      status: status,
-      imagemUrl: image,
+      name: descricao,
+      status: status === "Finalizada",
+      image: image,
     };
 
     try {
-      // Lógica para salvar a tarefa, incluindo a imagem
-      // Substitua isso com a lógica real de interação com o seu banco de dados
-      console.log("Dados da Tarefa:", taskData);
-
-      // Simulando uma operação assíncrona (pode ser uma chamada à API, operação no banco de dados, etc.)
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve();
-        }, 1000); // Simulando um atraso de 1 segundo
-      });
+      console.log(taskData);
+      await api.post("/tasks", taskData);
 
       toast.success("Tarefa salva com sucesso");
       navigate("/");
