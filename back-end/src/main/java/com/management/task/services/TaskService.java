@@ -36,5 +36,14 @@ public class TaskService {
 
 		return new TaskDTO(savedTask);
 	}
+	
+	@Transactional
+	public TaskDTO update(Long id, TaskDTO taskDTO) {
+		Task task = repository.getReferenceById(id);
+		task.setStatus(taskDTO.getStatus());
+		task = repository.save(task);
+		
+		return new TaskDTO(task);
+	}
 
 }

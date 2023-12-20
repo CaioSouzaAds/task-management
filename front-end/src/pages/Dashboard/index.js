@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { FiList, FiPlus, FiImage, FiEdit2 } from "react-icons/fi";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
 import Header from "../../components/Header";
 import Title from "../../components/Title";
-import "./dashboard.css";
-
 import api from "../../services/api";
+import "./dashboard.css";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -16,7 +20,7 @@ function Dashboard() {
         const response = await api.get("/tasks");
         const data = response.data;
         setTasks(data);
-        console.log(data);
+        //console.log(data);
       } catch (error) {
         console.error("Erro ao buscar dados da API:", error.message);
       }
@@ -24,6 +28,34 @@ function Dashboard() {
 
     fetchData();
   }, []);
+
+  const handleConcluirClick = async (task) => {
+    try {
+      const taskData = {
+        image: task.image,
+        name: task.name,
+        status: !task.status,
+      };
+
+      await api.put(`/tasks/${task.id}`, taskData);
+
+      setTasks((prevTasks) =>
+        prevTasks.map((t) =>
+          t.id === task.id ? { ...t, status: !t.status } : t
+        )
+      );
+
+      toast.success("Tarefa concluída/atualizada com sucesso!");
+    } catch (error) {
+      toast.error("Erro ao concluir/atualizar tarefa. Tente novamente.");
+      console.error("Erro ao enviar dados para a API:", error.message);
+    }
+  };
+
+  const openLightbox = (image) => {
+    setLightboxImage(image);
+    setLightboxOpen(true);
+  };
 
   return (
     <div>
@@ -47,7 +79,7 @@ function Dashboard() {
                 <th scope='col'>Status</th>
                 <th scope='col'>Imagem</th>
                 <th scope='col'>#</th>
-                <th scope='col'>Ação</th>
+                <th scope='col'>Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -71,10 +103,14 @@ function Dashboard() {
                         src={task.image}
                         alt='Imagem da Tarefa'
                         className='task-image'
-                        style={{ width: 29, height: 29 }}
+                        style={{ width: 29, height: 29, cursor: "pointer" }}
+                        onClick={() => openLightbox(task.image)}
                       />
                     ) : (
-                      <button className='action-image'>
+                      <button
+                        className='action-image'
+                        onClick={() => openLightbox(null)}
+                      >
                         <FiImage size={29} />
                       </button>
                     )}
@@ -87,8 +123,12 @@ function Dashboard() {
                       <FiEdit2 color='#FFF' size={16} />
                     </button>
                   </td>
-                  <td data-label='ação'>
-                    <button className='btn-action'>
+                  <td data-label='Ações'>
+                    <button
+                      className={`btn-action ${task.status ? "concluido" : ""}`}
+                      onClick={() => handleConcluirClick(task)}
+                      disabled={task.status}
+                    >
                       {task.status ? "Concluída" : "Concluir"}
                     </button>
                   </td>
@@ -96,6 +136,13 @@ function Dashboard() {
               ))}
             </tbody>
           </table>
+
+          {lightboxOpen && (
+            <Lightbox
+              mainSrc={lightboxImage}
+              onCloseRequest={() => setLightboxOpen(false)}
+            />
+          )}
         </>
       </div>
     </div>

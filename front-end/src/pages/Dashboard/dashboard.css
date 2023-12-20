@@ -99,12 +99,25 @@
     border-radius: 4px;
     display: inline-block;
     margin-right: 3px;
-    width: 80px; 
-    text-align: center; 
-    vertical-align: middle; 
+    width: 80px;
+    text-align: center;
+    vertical-align: middle;
     line-height: 1.4;
-    height: 30px; 
+    height: 30px;
+    cursor: pointer; /* Adicionei para indicar que o botão é clicável por padrão */
   }
+  
+  .btn-action.concluido {
+    opacity: 0.5; /* Define a opacidade para tornar o botão transparente quando concluído */
+    cursor: not-allowed; /* Define o cursor para 'not-allowed' quando concluído */
+  }
+
+  .Toastify__toast {
+    border-radius: 4px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  
   
   
   
