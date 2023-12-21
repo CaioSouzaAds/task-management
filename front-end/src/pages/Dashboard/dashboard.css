@@ -104,22 +104,18 @@
     vertical-align: middle;
     line-height: 1.4;
     height: 30px;
-    cursor: pointer; /* Adicionei para indicar que o botão é clicável por padrão */
+    cursor: pointer; 
   }
   
   .btn-action.concluido {
-    opacity: 0.5; /* Define a opacidade para tornar o botão transparente quando concluído */
-    cursor: not-allowed; /* Define o cursor para 'not-allowed' quando concluído */
+    opacity: 0.5; 
+    cursor: not-allowed; 
   }
 
   .Toastify__toast {
     border-radius: 4px;
     font-family: 'Arial', sans-serif;
   }
-  
-  
-  
-  
   
 
   @media screen and (max-width: 500px){

@@ -54,7 +54,6 @@
   transform: scale(1.4);
 }
 
-/* O restante do seu CSS permanece o mesmo */
 
 
 .image-preview {
@@ -118,27 +117,40 @@
   color: #333;
 }
 
+.total-cont-ticks input {
+  border: none;
+  width: 1.5em;
+  background: none;
+  margin-left: 0.9em;
+  align-items: flex;
+}
 
+.total-cont-ticks span {
+  z-index: 99;
+  position: absolute;
+  opacity: 0.7;
+  transition: all 0.5s;
+}
 
-@media (max-width: 810px) {
+@media (max-width: 650px) {
   .container {
-    margin-top: 2em; 
+    margin-top: 2em;
   }
 
   .form-task {
-    margin: 1em; 
+    margin: 1em;
   }
 
   .label-upload {
-    margin: 2em 2em; 
+    margin: 2em 2em;
   }
 
   .image-preview {
-    width: 100%; 
-    max-width: none; 
-    height: auto; 
+    width: 100%;
+    max-width: none;
+    height: auto;
     object-fit: contain;
-    border-radius: 0; 
+    border-radius: 0;
   }
 
   .input-text,
@@ -150,12 +162,22 @@
 
   .button-container {
     display: flex;
-    justify-content: space-around; 
+    justify-content: space-around;
     margin-top: 1em;
   }
 
   .btn-cancelar,
   .btn-salvar {
-    width: 48%; 
+    width: 48%;
+  }
+
+  .total-cont-ticks input {
+    width: 100%;
+    max-width: none;
+  }
+
+  .total-cont-ticks span {
+    position: relative;
+    opacity: 1;
   }
 }
