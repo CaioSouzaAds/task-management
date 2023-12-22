@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FiEdit, FiUpload, FiMessageSquare } from "react-icons/fi";
+import { FiEdit, FiUpload } from "react-icons/fi";
 import Title from "../../components/Title";
 import Header from "../../components/Header";
 import upload from "../../assets/upload.png";
 import api from "../../services/api";
 
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 
 import "./newtask.css";
 
 function NewTask() {
-  const { totalTaskPending } = useSelector((rootReducer) => rootReducer.task);
+  //const { loading } = useSelector((rootReducer) => rootReducer.task);
   const [descricao, setDescricao] = useState("");
   const [status, setStatus] = useState("Pendente");
   const [image, setImage] = useState(null);
-  const [totalContTicks, setTotalContTicks] = useState(totalTaskPending);
 
   const navigate = useNavigate();
 
@@ -43,10 +42,6 @@ function NewTask() {
       toast.error("Nenhum arquivo selecionado.");
       setImage(null);
     }
-  };
-
-  const handleInputChange = (e) => {
-    setTotalContTicks(e.target.value);
   };
 
   const isImageValid = (imageFile) => {
@@ -93,16 +88,6 @@ function NewTask() {
         <Title>
           <FiEdit size={30} />
           <span>NOVA TAREFA</span>
-          <label className='total-cont-ticks'>
-            <span>
-              <FiMessageSquare size={30} />
-            </span>
-            <input
-              type='text'
-              value={totalContTicks}
-              onChange={handleInputChange}
-            />
-          </label>
         </Title>
 
         <div className='container'>
@@ -139,7 +124,6 @@ function NewTask() {
                 <img src={upload} alt='foto-upload' className='image-preview' />
               )}
             </label>
-
             <div className='button-container'>
               <button type='submit' className='btn-salvar'>
                 Salvar

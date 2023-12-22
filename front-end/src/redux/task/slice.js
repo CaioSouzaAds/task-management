@@ -1,13 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  task: {
-    id: "",
-    name: "",
-    status: "",
-    image: "",
-  },
+  task: null,
   totalTaskPending: 0,
+  listTasks: [],
+  loading: false,
 };
 
 export const taskSlice = createSlice({
@@ -15,11 +12,27 @@ export const taskSlice = createSlice({
   initialState,
   reducers: {
     findTask: (state, action) => {
-      state.totalTaskPending = action.payload.totalTaskPending;
+      return {
+        ...state,
+        totalTaskPending: action.payload.totalTaskPending,
+      };
+    },
+    fetchTasks: (state) => {
+      state.loading = true;
+    },
+    fetchTasksSuccess: (state, action) => {
+      state.listTasks = action.payload;
+      state.loading = false;
+    },
+    fetchTasksFailure: (state, action) => {
+      console.log("CAIU NA FAILURE");
+      console.log(action.payload);
+      state.loading = false;
     },
   },
 });
 
-export const { findTask } = taskSlice.actions;
+export const { findTask, fetchTasks, fetchTasksSuccess, fetchTasksFailure } =
+  taskSlice.actions;
 
 export default taskSlice.reducer;
